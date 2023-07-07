@@ -1,0 +1,10 @@
+config SHIELD_DACTYL_LIGHTCYCLE
+    bool
+
+config SHIELD_DACTYL_LIGHTCYCLE_LEFT
+    def_bool $(shields_list_contains,dactyl_lightcycle_left)
+    select SHIELD_DACTYL_LIGHTCYCLE
+
+config SHIELD_DACTYL_LIGHTCYCLE_RIGHT
+    def_bool $(shields_list_contains,dactyl_lightcycle_right)
+    select SHIELD_DACTYL_LIGHTCYCLE
