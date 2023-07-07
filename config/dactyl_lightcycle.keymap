@@ -11,7 +11,8 @@
 
 #define DEFAULT 0
 #define NUMB    1
-#define ADMIN   2
+#define LADMIN  2
+#define RADMIN  3
 
 / {
     keymap {
@@ -54,15 +55,15 @@
         number_layer {
 /* Keymap 1: Number Layer
  *
- * ,-----------------------------------------.                    ,-----------------------------------------.
- * |          |  |  F9  |  F10 |  F11 |  F12 |                    |      |   7  |   8  |   9  |   -  |      |
- * |----------+--+------+------+------+------|                    |------+------+------+------+------+------|
- * |          |  |  F5  |  F6  |  F7  |  F8  |                    |      |   4  |   5  |   6  |   +  |      |
- * |----------+--+------+------+------+------|                    |------+------+------+------+------+------|
- * |          |  |  F1  |  F2  |  F3  |  F4  |                    |      |   1  |   2  |   3  |   *  |      |
- * |----------+------+------+------+------+--'                    `------+------+------+------+------+------|
- * |MO(ADMIN) |  |      |      |      |                                  |   0  |   0  |   .  |   /  |      |
- * `----------------------------------'                                  `----------------------------------'
+ * ,-----------------------------------------.                    ,---------------------------------------------.
+ * |          |  |  F9  |  F10 |  F11 |  F12 |                    |      |   7  |   8  |   9  |   -  |          |
+ * |----------+--+------+------+------+------|                    |------+------+------+------+------+----------|
+ * |          |  |  F5  |  F6  |  F7  |  F8  |                    |      |   4  |   5  |   6  |   +  |          |
+ * |----------+--+------+------+------+------|                    |------+------+------+------+------+----------|
+ * |          |  |  F1  |  F2  |  F3  |  F4  |                    |      |   1  |   2  |   3  |   *  |          |
+ * |----------+------+------+------+------+--'                    `------+------+------+------+------+----------|
+ * |MO(LADMIN)|  |      |      |      |                                  |   0  |   0  |   .  |   /  |MO(RADMIN)|
+ * `----------------------------------'                                  `--------------------------------------'
  *                                      ,-------------.  ,-------------.
  *                                      |      |      |  |      | RCtrl|
  *                               ,------|      |      |  | RAlt |      |------.
@@ -74,29 +75,29 @@
  *                               `--------------------'  `--------------------'
  */
             bindings = <
-&trans     &trans  &kp F9  &kp F10  &kp F11  &kp F12                     &trans     &kp N7     &kp N8  &kp N9   &kp MINUS &trans
-&trans     &trans  &kp F5  &kp F6   &kp F7   &kp F8                      &trans     &kp N4     &kp N5  &kp N6   &kp PLUS  &trans
-&trans     &trans  &kp F1  &kp F2   &kp F3   &kp F4                      &trans     &kp N1     &kp N2  &kp N3   &kp STAR  &trans
-&mo ADMIN  &trans  &trans  &trans   &trans                                          &kp N0     &kp N0  &kp DOT  &kp FSLH  &trans
-                                             &trans  &trans    &kp RALT  &kp RCTRL   
-                                    &trans   &trans  &trans    &trans    &mo RSHFT  &trans
+&trans      &trans  &kp F9  &kp F10  &kp F11  &kp F12                     &trans     &kp N7     &kp N8  &kp N9   &kp MINUS &trans
+&trans      &trans  &kp F5  &kp F6   &kp F7   &kp F8                      &trans     &kp N4     &kp N5  &kp N6   &kp PLUS  &trans
+&trans      &trans  &kp F1  &kp F2   &kp F3   &kp F4                      &trans     &kp N1     &kp N2  &kp N3   &kp STAR  &trans
+&mo LADMIN  &trans  &trans  &trans   &trans                                          &kp N0     &kp N0  &kp DOT  &kp FSLH  &mo RADMIN
+                                              &trans  &trans    &kp RALT  &kp RCTRL   
+                                     &trans   &trans  &trans    &trans    &mo RSHFT  &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
-        admin_layer {
+        admin_layer_left {
 /* Keymap 2: Admin Layer
  *
- * ,-------------------------------------------.                    ,-----------------------------------------.
- * |      |      |      |      |      |  BLDR  |                    | BLDR |      |      |      |      |      |
- * |------+------+------+------+------+--------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |        |                    |      |      |      |      |      |      |
- * |------+------+------+------+------+--------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |        |                    |      |      |      |      |      |      |
- * |------------+------+------+------+--------+'                    `------+------+------+------+------+------|
- * |      |      |      |      |      |                                    |      |      |      |      |      |
- * `----------------------------------'                                    `----------------------------------'
+ * ,-------------------------------------------.                    ,------------------------------------------.
+ * |      |      |      |      |      |  BLDR  |                    | BLDR |       |      |      |      |      |
+ * |------+------+------+------+------+--------|                    |------+-------+------+------+------+------|
+ * |      |      |      |      | TOG  |        |                    |      | BTCLR |      |      |      |      |
+ * |------+------+------+------+------+--------|                    |------+-------+------+------+------+------|
+ * |      |      |      |      | ON   |        |                    |      | BT_0  |      |      |      |      |
+ * |------------+------+------+------+--------+'                    `------+-------+------+------+------+------|
+ * |      |      |      |      | OFF  |                                    | BT_1  |      |      |      |      |
+ * `----------------------------------'                                    `-----------------------------------'
  *                                      ,-------------.  ,-------------.
  *                                      |      |      |  |      |      |
  *                               ,------|      |      |  |      |      |------.
@@ -108,12 +109,47 @@
  *                               `--------------------'  `--------------------'
  */
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &bootloader                     &bootloader  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans                          &trans       &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans                          &trans       &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans                                               &trans  &trans  &trans  &trans  &trans
-                                        &trans      &trans      &trans  &trans                      
-                                &trans  &trans      &trans      &trans  &trans       &trans
+&trans  &trans  &trans  &trans  &trans             &bootloader                     &bootloader  &trans        &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &ext_power EP_TOG  &trans                          &trans       &bt BT_CLR    &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &ext_power EP_ON   &trans                          &trans       &bt BT_SEL 0  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &ext_power EP_OFF                                               &bt BT_SEL 1  &trans  &trans  &trans  &trans
+                                                   &trans      &trans      &trans  &trans                      
+                                &trans             &trans      &trans      &trans  &trans       &trans
+            >;              
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+        };
+    };
+
+        admin_layer_right {
+/* Keymap 3: Admin Layer Right...
+ *
+ * ,-------------------------------------------.                    ,------------------------------------------.
+ * |      |      |      |      |      |  BLDR  |                    | BLDR |       |      |      |      |      |
+ * |------+------+------+------+------+--------|                    |------+-------+------+------+------+------|
+ * |      |      |      |      | TOG  |        |                    |      | BTCLR |      |      |      |      |
+ * |------+------+------+------+------+--------|                    |------+-------+------+------+------+------|
+ * |      |      |      |      | ON   |        |                    |      | BT_0  |      |      |      |      |
+ * |------------+------+------+------+--------+'                    `------+-------+------+------+------+------|
+ * |      |      |      |      | OFF  |                                    | BT_1  |      |      |      |      |
+ * `----------------------------------'                                    `-----------------------------------'
+ *                                      ,-------------.  ,-------------.
+ *                                      |      |      |  |      |      |
+ *                               ,------|      |      |  |      |      |------.
+ *                               |      |------|      |  |      |------|      |
+ *                               |      |      |------|  |------|      |      |
+ *                               |      |      |      |  |      |      |      |
+ *                               |      |      |      |  |      |      |      |
+ *                               |      |      |      |  |      |      |      |
+ *                               `--------------------'  `--------------------'
+ */
+            bindings = <
+&trans  &trans  &trans  &trans  &trans             &bootloader                     &bootloader  &trans        &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &ext_power EP_TOG  &trans                          &trans       &bt BT_CLR    &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &ext_power EP_ON   &trans                          &trans       &bt BT_SEL 0  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &ext_power EP_OFF                                               &bt BT_SEL 1  &trans  &trans  &trans  &trans
+                                                   &trans      &trans      &trans  &trans                      
+                                &trans             &trans      &trans      &trans  &trans       &trans
             >;              
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
